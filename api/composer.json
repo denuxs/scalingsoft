@@ -1,0 +1,16 @@
+{
+    "name": "denuxs/auth-php",
+    "autoload": {
+        "psr-4": {
+            "App\\": "src"
+        },
+        "classmap": ["src"]
+    },
+    "authors": [
+        {
+            "name": "Denis Lopez",
+            "email": "denuxs@gmail.com"
+        }
+    ],
+    "require": {}
+}

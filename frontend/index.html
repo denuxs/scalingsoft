@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://getbootstrap.com/docs/5.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <title>Home</title>
+  </head>
+  <body>
+    <div class="container">
+      <header
+        class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom"
+      >
+        <a
+          href="/"
+          class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none"
+        >
+          <span class="fs-4">Home</span>
+        </a>
+
+        <ul class="nav nav-pills">
+          <li class="nav-item">
+            <button type="button" id="logout-btn" class="btn btn-light">
+              Logout
+            </button>
+          </li>
+        </ul>
+      </header>
+
+      <section>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="d-flex justify-content-between">
+              <h3>Users</h3>
+              <a class="btn btn-primary" href="register.html">Register</a>
+            </div>
+
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">Username</th>
+                  <th scope="col">Fullname</th>
+                  <th scope="col">Status</th>
+                  <th scope="col">Role</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+    </div>
+    <script type="module" src="/pages/index.js"></script>
+  </body>
+</html>
