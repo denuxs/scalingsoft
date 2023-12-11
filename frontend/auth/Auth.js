@@ -1,16 +1,12 @@
 import { API } from '../environment.js';
 
-export function isLoggedIn() {
+export function getUser() {
   const auth = JSON.parse(localStorage.getItem('auth'));
 
-  if (!auth || !auth['token']) {
-    window.location.href = 'login.html';
-  }
+  return auth && auth.user;
 }
 
 export async function loginUser(payload) {
-  document.getElementById('login-error').innerHTML = '';
-
   try {
     const response = await fetch(`${API}/auth/login.php`, {
       method: 'POST',
@@ -24,8 +20,10 @@ export async function loginUser(payload) {
 
     if (!response.ok) {
       switch (response.status) {
+        case 404:
         case 400:
-          document.getElementById('login-error').innerHTML = data.error;
+        case 401:
+          alert(data.error);
           break;
         default:
           throw new Error(response.statusText);
@@ -34,17 +32,13 @@ export async function loginUser(payload) {
     }
 
     localStorage.setItem('auth', JSON.stringify(data));
-    window.location.href = 'index.html';
+    window.location.reload();
   } catch (error) {
     console.log('An error occurred:', error);
   }
 }
 
 export function logoutSession(element) {
-  element.addEventListener('click', (event) => {
-    event.preventDefault();
-
-    localStorage.clear();
-    window.location.href = 'login.html';
-  });
+  localStorage.clear();
+  window.location.reload();
 }

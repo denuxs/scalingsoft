@@ -1,6 +1,6 @@
 <?php
 
-$HOST = "172.19.0.2";
+$HOST = "172.19.0.3";
 $USER = "root";
 $PASSWORD = "example";
-$DATABASE = "users";
+$DATABASE = "scalingsoft";

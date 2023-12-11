@@ -7,7 +7,6 @@ if (!function_exists('mysqli_init') && !extension_loaded('mysqli')) {
 
 define('ROOT_DIR', __DIR__);
 
-header('Content-Type: application/json; charset=utf-8');
 header('Access-Control-Allow-Origin: http://localhost:5173'); // CORS
 header('Access-Control-Allow-Methods: POST, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type');
@@ -17,34 +16,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     exit;
 }
 
-$json = file_get_contents('php://input');
-$request = json_decode($json, true);
-
 function create_log($message)
 {
     date_default_timezone_set('America/Managua');
-    $time = date('F j, Y, g:i a e O');
+    $time = date('Y-m-d H:i:s');
     $message = "[{$time}] {$message} \n";
 
-    error_log($message, 3, 'logs/errors.log');
-    die();
+    error_log($message, 3, ROOT_DIR . '/logs/errors.log');
+    // die();
 }
 
-function custom_error_handler($error_no, $error_msg)
+function custom_error_handler(int $errno, string $errstr, string $errfile, int $errline)
 {
-    $message = "Error: [$error_no] $error_msg";
+    $message = "Error: [{$errstr}] in {$errfile} on line {$errline}";
     create_log($message);
 }
 set_error_handler("custom_error_handler");
 
 function custom_exception_handler(Exception $ex)
 {
-    create_log($ex->getMessage());
+    $message = "Exception: [{$ex->getMessage()}] in {$ex->getFile()} on line {$ex->getLine()}";
+
+    create_log($message);
 }
 set_exception_handler("custom_exception_handler");
 
 function response_json(array $data, int $status = 200)
 {
+    header('Content-Type: application/json; charset=utf-8');
+
     http_response_code($status);
     if ($data) {
         echo json_encode($data);
